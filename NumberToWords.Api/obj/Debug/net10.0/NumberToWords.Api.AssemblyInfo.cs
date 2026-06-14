@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NumberToWords.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8eab9c184741bec58cd16a2a534e8ce81f13a22a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eb3bcaa5aac856f48d150afd563d120e8fed0be6")]
 [assembly: System.Reflection.AssemblyProductAttribute("NumberToWords.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NumberToWords.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,4 +1,5 @@
 using NumberToWords.Api.Converters;
+using NumberToWords.Api.Middlewares;
 using NumberToWords.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,7 @@ var app = builder.Build();
 // Enable Swagger
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseMiddleware<ExceptionMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

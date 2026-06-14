@@ -4,5 +4,6 @@ namespace NumberToWords.Api.Converters;
 
 public interface INumberConverter
 {
-    public string HandleNumberToWordsConversion(long number);
+    public string LanguageCode { get; }    
+    public string HandleNumberToWordsConversion(long number, int cents = 0);
 }
