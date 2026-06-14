@@ -14,10 +14,21 @@ builder.Services.AddScoped<INumberConverter,GermanNumberConverter>();
 builder.Services.AddScoped<INumberToWordsService, NumberToWordsService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200") // Replace with your Angular app's URL
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
 
 var app = builder.Build();
 
+app.UseCors("AllowAngularApp");
 // Enable Swagger
 app.UseSwagger();
 app.UseSwaggerUI();
