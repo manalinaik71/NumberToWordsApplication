@@ -1,3 +1,115 @@
 using System;
 
 namespace NumberToWords.Api.Converters;
+
+public class GermanNumberConverter : INumberConverter
+{
+    public string LanguageCode { get; } = "de";
+    string[] ones = ["", "eins", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun", "zehn", "elf", "zwölf", "dreizehn", "vierzehn", "fünfzehn", "sechzehn", "siebzehn", "achtzehn", "neunzehn"];
+
+    string[] tens = ["", "", "zwanzig", "dreißig", "vierzig", "fünfzig", "sechzig", "siebzig", "achtzig", "neunzig"];
+
+
+    public string UnderHundredConversion(int number)
+    {
+        string t = ""; string o = ""; string output = "";
+
+        if (number >= 20)
+        {
+            int num = number / 10;
+            t = tens[num];
+            number = number % 10;
+        }
+
+        if (number == 0)
+        {
+            return t;
+        }
+
+        o = (number == 1 ? "ein" : ones[number]);
+        output = (t != "" ? (o + "und" + t) : o);
+
+        return output;
+    }
+
+    public string UnderThousandConversion(int number)
+    {
+        List<string> Words = new List<string>();
+
+        if (number >= 100)
+        {
+            int hundredPart = number / 100;
+            string hundredWord = hundredPart == 1 ? "ein" : ones[hundredPart];
+
+            Words.Add(hundredWord + "hundert");
+
+            number = number % 100;
+        }
+
+        if (number > 0)
+        {
+            Words.Add(UnderHundredConversion(number));
+        }
+
+        return string.Join(' ', Words);
+    }
+
+    public string HandleNumberToWordsConversion(long number, int cents = 0)
+    {
+        
+        List<string> words = new List<string>();
+        if (number == 0)
+        {
+             words.Add("null dollars");
+        }
+
+        if (number >= 1_000_000_000)
+        {
+            long billionPart = number / 1_000_000_000;
+            if (billionPart == 1)
+                words.Add("eine Milliarde");
+            else
+                words.Add(HandleNumberToWordsConversion(billionPart) + " Milliarden");
+            number = number % 1_000_000_000;
+        }
+        if (number >= 1_000_000)
+        {
+            long millionPart = number / 1_000_000;
+
+            if (millionPart == 1)
+                words.Add("eine Million");
+            else
+                words.Add(UnderThousandConversion((int)millionPart) + " Millionen");
+
+            number = number % 1_000_000;
+        }
+
+        if (number >= 1000)
+        {
+            long thousandPart = number / 1000;
+
+            if (thousandPart == 1)
+                words.Add("eintausend");
+            else
+                words.Add(UnderThousandConversion((int)thousandPart) + "tausend");
+
+            number = number % 1000;
+        }
+
+        if (number > 0)
+        {
+            words.Add(UnderThousandConversion((int)number));
+            string dollarword = (number == 1 ? "dollar" : "dollars");
+            words.Add(dollarword);
+        }
+
+        /*handle cent*/
+        if (cents > 0)
+        {
+            words.Add("und");
+            words.Add(UnderThousandConversion(cents) + " cent");
+        }
+
+        return string.Join(' ', words);
+    }
+}

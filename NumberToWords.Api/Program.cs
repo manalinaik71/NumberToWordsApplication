@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddScoped<INumberConverter,EnglishNumberConverter>();
+builder.Services.AddScoped<INumberConverter,GermanNumberConverter>();
 builder.Services.AddScoped<INumberToWordsService, NumberToWordsService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
