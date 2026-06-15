@@ -266,3 +266,10 @@ I also added centralized exception handling middleware so that backend errors ar
 ## Final note
 
 I built this application with a simple client-server architecture. My main focus was to keep the responsibilities separated, validate the input on both frontend and backend, and keep the conversion logic on the server side as required.
+
+
+## AI Usage Transparency
+[AI Transparency Document](AI-usage.md)
+
+## Author
+Manali Naik
