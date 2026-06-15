@@ -41,7 +41,7 @@ public class EnglishNumberConverter : INumberConverter
 
     if (number == 0)
     {
-      words.Add("zero dollars");
+      words.Add("zero");
     }
 
     if (number >= 1000_000)
