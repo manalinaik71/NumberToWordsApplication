@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/internal/Observable';
 
 
 export interface NumberConversionRequest {
@@ -16,13 +17,11 @@ export interface NumberConversionResponse {
   providedIn: 'root'
 })
 export class NumberToWordConversionService {
-
+  private readonly apiUrl = 'http://localhost:5297/api/NumberConversion/convert';
   constructor(private http: HttpClient) { }
 
-  ConvertNumberToWords(request: NumberConversionRequest) {
+  convertNumberToWords(request: NumberConversionRequest): Observable<NumberConversionResponse> {
 
-    const apiURL = 'http://localhost:5297/api/NumberConversion/convert';
-
-    return this.http.post<NumberConversionResponse>(apiURL, request);
+    return this.http.post<NumberConversionResponse>(this.apiUrl, request);
   }
 }
