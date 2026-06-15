@@ -1,4 +1,4 @@
-# Number to Words Converter
+# Number to Words Converter application
 
 This is a web application that converts a currency amount into words. The application supports English and German.
 
