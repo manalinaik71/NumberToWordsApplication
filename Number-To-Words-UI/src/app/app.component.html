@@ -1,0 +1,48 @@
+<mat-card class="converter-card">
+  <h2>Numbers to Words Converter</h2>
+  <form #conversionForm="ngForm" (ngSubmit)="onSubmit()">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label> Select Language</mat-label>
+      <mat-select name="language" [(ngModel)]="request.language" (ngModelChange)="result = ''; errorMessage = ''"
+        #languageField="ngModel" required>
+        <mat-option value="" disabled>Select Language</mat-option>
+        <mat-option *ngFor="let language of languages" [value]="language.value">
+          {{ language.label }}
+        </mat-option>
+      </mat-select>
+
+      <mat-error class="error" *ngIf="languageField.errors?.['required'] && languageField.touched ">
+        Language is required.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      
+      <mat-label> Enter Amount in $</mat-label>
+      <input matInput type="text" name="amount" [(ngModel)]="request.amount"
+        (ngModelChange)="result = ''; errorMessage = ''" #amountField="ngModel" required
+        pattern="^(0|[1-9]\d{0,8})(,\d{1,2})?$" placeholder="Enter amount (e.g., 1234 or 1234,56)">
+
+      <mat-error class="error" *ngIf="amountField.errors?.['required'] && amountField.touched">
+        Amount is required.
+      </mat-error>
+      <mat-error class="error" *ngIf="amountField.errors?.['pattern'] && amountField.touched">
+        Dollars must be 0–999999999. Cents must be 0–99. Use a comma (,) between dollars and cents, for example 1234 or
+        1234,56.
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!conversionForm.form.valid" class="convert-btn">
+      Convert
+    </button>
+  </form>
+
+  <h2 class="result" *ngIf="result">
+    {{result}}
+  </h2>
+
+  <p class="error" *ngIf="errorMessage">
+    {{errorMessage}}
+  </p>
+</mat-card>

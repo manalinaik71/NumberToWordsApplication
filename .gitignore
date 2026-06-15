@@ -1,0 +1,21 @@
+# .NET build output
+bin/
+obj/
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+
+# Build files
+*.dll
+*.exe
+*.pdb
+
+# User-specific files
+*.user
+*.suo
+
+# Angular dependencies/build output
+node_modules/
+dist/
+.angular/

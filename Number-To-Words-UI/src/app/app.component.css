@@ -1,0 +1,24 @@
+.converter-card {
+  max-width: 500px;
+  margin: 60px auto;
+  padding: 24px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.result {
+  margin-top: 24px;
+}
+
+.convert-btn {
+  margin-top: 8%;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+  font-size: 14px;
+}
