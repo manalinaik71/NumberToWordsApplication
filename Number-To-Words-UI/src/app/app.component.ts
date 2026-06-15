@@ -22,21 +22,16 @@ export class AppComponent {
 
 
   onSubmit():void{
-    console.log(this.request);
+    this.result = '';
     this.errorMessage = '';
 
     const amountValue = this.request.amount.trim();
     const amountParts = amountValue.split(',');
-
     const number = Number(amountParts[0]);
-    const cents = amountParts.length > 1 ? Number(amountParts[1].padEnd(2,'0').substring(0,2)) : 0;
-
-    if(number < 0 || number > 999999999){
-      this.errorMessage = 'Please enter a number between 0 and 999,999,999.';
-      this.result = '';
-
-      return;
-    }
+   
+    const cents = amountParts.length > 1 ? 
+                  (amountParts[1].length == 1 ? Number(amountParts[1] + '0') : Number(amountParts[1])) : 0;
+   
     
     if(cents < 0 || cents > 99){
       this.errorMessage = "Please enter a valid cents value between 0 and 99.";
@@ -45,6 +40,13 @@ export class AppComponent {
 
     }
 
+    if(number < 0 || number > 999999999){
+      this.errorMessage = 'Please enter a number between 0 and 999,999,999.';
+      this.result = '';
+
+      return;
+    }
+    
     const apiRequest = {
       language : this.request.language,
       number : number,

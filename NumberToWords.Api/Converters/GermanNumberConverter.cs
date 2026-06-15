@@ -107,7 +107,9 @@ public class GermanNumberConverter : INumberConverter
         if (cents > 0)
         {
             words.Add("und");
-            words.Add(UnderThousandConversion(cents) + " cent");
+            words.Add(UnderThousandConversion(cents));
+            string centword = (cents == 1? "cent": "cents");
+            words.Add(centword);
         }
 
         return string.Join(' ', words);

@@ -75,7 +75,8 @@ public class EnglishNumberConverter : INumberConverter
           {
             words.Add("and");
             words.Add(UnderThousandConversion(cents));
-            words.Add("cents");
+            string centword = (cents == 1? "cent": "cents");
+            words.Add(centword);
           }
 
           return string.Join(' ',words);
