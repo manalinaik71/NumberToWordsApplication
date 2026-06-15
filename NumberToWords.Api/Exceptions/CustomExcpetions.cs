@@ -1,16 +1,14 @@
-using System.Net;
-
 namespace NumberToWords.Api.Exceptions;
 
-public abstract class CustomExceptions : Exception
+public abstract class CustomException : Exception
 {
-    public CustomExceptions(string message) : base(message)
+    protected CustomException(string message) : base(message)
     {
         
     }
 }
 
-public class BadRequestException : CustomExceptions
+public class BadRequestException : CustomException
 {
     public BadRequestException(string message) : base(message)
     {

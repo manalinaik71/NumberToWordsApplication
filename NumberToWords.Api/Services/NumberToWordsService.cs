@@ -1,24 +1,23 @@
-using System;
-using NumberToWords.Api.Constants;
 using NumberToWords.Api.Converters;
-using NumberToWords.Api.Enums;
+using NumberToWords.Api.Exceptions;
 using NumberToWords.Api.Models;
 
 namespace NumberToWords.Api.Services;
 
 public class NumberToWordsService : INumberToWordsService
 {
-    private readonly IEnumerable<INumberConverter> _numberConverter;
+    private readonly IEnumerable<INumberConverter> _numberConverters;
     public NumberToWordsService(IEnumerable<INumberConverter> numberConverter)
     {
-        _numberConverter = numberConverter;
+        _numberConverters = numberConverter;
     }
     public string RequestNumberConverter(NumberConversionRequest numberConversionRequest)
-    {
-        var converter = _numberConverter.FirstOrDefault(c=> c.LanguageCode == numberConversionRequest.Language);
+    {   
+        var language = numberConversionRequest.Language.Trim().ToLower();
+        var converter = _numberConverters.FirstOrDefault(c=> c.LanguageCode == language);
         if(converter == null)
         {
-            throw new NotSupportedException($"No converter found for language code: {numberConversionRequest.Language}");
+            throw new BadRequestException($"No converter found for language code: {numberConversionRequest.Language}");
         }
 
         var result = converter.HandleNumberToWordsConversion(numberConversionRequest.Number, numberConversionRequest.Cents);

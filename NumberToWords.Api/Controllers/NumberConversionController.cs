@@ -26,14 +26,14 @@ public class NumberConversionController:ControllerBase
             throw new BadRequestException(ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage).FirstOrDefault() ?? "Invalid request.");
         }
 
-        if(request.Language != SupportedLanguage.English && request.Language != SupportedLanguage.German)
+        if (request.Language != SupportedLanguage.English && request.Language != SupportedLanguage.German)
         {
             throw new BadRequestException("Unsupported language. Supported languages are 'en' for English and 'de' for German.");
         }
 
         var result = _numberToWordsService.RequestNumberConverter(request);
 
-        var response = new NumberConversionResponse {words = result};
+        var response = new NumberConversionResponse { Words = result };
 
         return Ok(response);
     }

@@ -5,9 +5,9 @@ namespace NumberToWords.Api.Converters;
 public class GermanNumberConverter : INumberConverter
 {
     public string LanguageCode { get; } = "de";
-    string[] ones = ["", "eins", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun", "zehn", "elf", "zwölf", "dreizehn", "vierzehn", "fünfzehn", "sechzehn", "siebzehn", "achtzehn", "neunzehn"];
+    private readonly string[] ones = ["", "eins", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun", "zehn", "elf", "zwölf", "dreizehn", "vierzehn", "fünfzehn", "sechzehn", "siebzehn", "achtzehn", "neunzehn"];
 
-    string[] tens = ["", "", "zwanzig", "dreißig", "vierzig", "fünfzig", "sechzig", "siebzig", "achtzig", "neunzig"];
+    private readonly string[] tens = ["", "", "zwanzig", "dreißig", "vierzig", "fünfzig", "sechzig", "siebzig", "achtzig", "neunzig"];
 
 
     public string UnderHundredConversion(int number)
@@ -34,33 +34,33 @@ public class GermanNumberConverter : INumberConverter
 
     public string UnderThousandConversion(int number)
     {
-        List<string> Words = new List<string>();
+        List<string> words = new List<string>();
 
         if (number >= 100)
         {
             int hundredPart = number / 100;
             string hundredWord = hundredPart == 1 ? "ein" : ones[hundredPart];
 
-            Words.Add(hundredWord + "hundert");
+            words.Add(hundredWord + "hundert");
 
             number = number % 100;
         }
 
         if (number > 0)
         {
-            Words.Add(UnderHundredConversion(number));
+            words.Add(UnderHundredConversion(number));
         }
 
-        return string.Join(' ', Words);
+        return string.Join(' ', words);
     }
 
     public string HandleNumberToWordsConversion(long number, int cents = 0)
     {
-        
+
         List<string> words = new List<string>();
         if (number == 0)
         {
-             words.Add("null dollars");
+            words.Add("null");
         }
 
         if (number >= 1_000_000_000)
@@ -69,7 +69,7 @@ public class GermanNumberConverter : INumberConverter
             if (billionPart == 1)
                 words.Add("eine Milliarde");
             else
-                words.Add(HandleNumberToWordsConversion(billionPart) + " Milliarden");
+                words.Add(UnderThousandConversion((int)billionPart) + " Milliarden");
             number = number % 1_000_000_000;
         }
         if (number >= 1_000_000)
@@ -99,17 +99,15 @@ public class GermanNumberConverter : INumberConverter
         if (number > 0)
         {
             words.Add(UnderThousandConversion((int)number));
-            string dollarword = (number == 1 ? "dollar" : "dollars");
-            words.Add(dollarword);
         }
+        words.Add("Dollar");
 
         /*handle cent*/
         if (cents > 0)
         {
             words.Add("und");
             words.Add(UnderThousandConversion(cents));
-            string centword = (cents == 1? "cent": "cents");
-            words.Add(centword);
+            words.Add("Cent");
         }
 
         return string.Join(' ', words);

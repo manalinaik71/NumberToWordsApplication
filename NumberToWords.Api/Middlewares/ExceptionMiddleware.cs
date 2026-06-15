@@ -3,7 +3,7 @@ using NumberToWords.Api.Exceptions;
 
 namespace NumberToWords.Api.Middlewares;
 
-class ExceptionMiddleware
+public class ExceptionMiddleware
 {
     private readonly RequestDelegate _next;
     public ExceptionMiddleware(RequestDelegate next)
@@ -17,16 +17,19 @@ class ExceptionMiddleware
         {
             await _next(httpContext);
         }
-        catch(BadRequestException ex)
+        catch (BadRequestException ex)
         {
             httpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            httpContext.Response.ContentType = "application/json";
+
             await httpContext.Response.WriteAsJsonAsync(new { error = ex.Message });
         }
-        catch(Exception ex)
+        catch (Exception)
         {
             httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            await httpContext.Response.WriteAsJsonAsync(new { error = ex.Message });
-                        
+            httpContext.Response.ContentType = "application/json";
+            await httpContext.Response.WriteAsJsonAsync(new { error = "An unexpected error occurred. Please try again later." });
+
         }
     }
 }
