@@ -34,7 +34,7 @@ eintausend zweihundert vierunddreißig Dollar und sechsundfünfzig Cent
 
 The diagram below shows the high-level flow of the application.
 
-![alt text](image-1.png)
+![Application UI](./docs/Screenshot-architecture.png)
 
 * The application follows a client-server architecture.
 * The Angular frontend collects the language and amount from the user.
@@ -44,6 +44,36 @@ The diagram below shows the high-level flow of the application.
 * The service selects the correct converter based on the selected language.
 * The converted result is returned to the frontend and displayed on the UI.
 
+
+## Screenshots
+
+### Application UI
+
+![Application UI](./docs/screenshot-ui.png)
+
+### English conversion
+
+![English conversion](./docs/Screenshot-EnglishConverter.png)
+
+### German conversion
+
+![German conversion](./docs/Screenshot-GermanConverter.png)
+
+### Swagger API
+
+![Swagger API](./docs/Screenshot-swagger-api-part1.png)
+
+![Swagger API](./docs/Screenshot-swagger-api-part2.png)
+
+### Postman API
+
+![POSTMan API](./docs/Screenshot-postman-EnglishConverter.png)
+![POSTMan API](./docs/Screenshot-postman-GermanConverter.png)
+
+### Validation screenshots
+
+![validation_part1](./docs/Screenshot_validattion_part1.png)
+![validation_part2](./docs/Screenshot-validation-part-2.png)
 
 
 ## Technologies used
