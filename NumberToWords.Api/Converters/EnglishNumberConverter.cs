@@ -1,4 +1,5 @@
 using System;
+using NumberToWords.Api.Constants;
 
 namespace NumberToWords.Api.Converters;
 
@@ -7,7 +8,7 @@ public class EnglishNumberConverter : INumberConverter
   private readonly string[] ones = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
   private readonly string[] tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
 
-  public string LanguageCode { get; } = "en";
+  public string LanguageCode { get; } = SupportedLanguage.English.ToString();
   public string UnderThousandConversion(long number)
   {
     List<string> subWords = new List<string>();
@@ -43,13 +44,6 @@ public class EnglishNumberConverter : INumberConverter
       words.Add("zero dollars");
     }
 
-    if (number >= 1000_000_000)
-    {
-      long num = number / 1000_000_000;
-      words.Add(UnderThousandConversion(num));
-      words.Add("billion");
-      number = number % 1000_000_000;
-    }
     if (number >= 1000_000)
     {
       long num = number / 1000_000;

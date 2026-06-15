@@ -1,10 +1,11 @@
 using System;
+using NumberToWords.Api.Constants;
 
 namespace NumberToWords.Api.Converters;
 
 public class GermanNumberConverter : INumberConverter
 {
-    public string LanguageCode { get; } = "de";
+    public string LanguageCode { get; } = SupportedLanguage.German.ToString();
     private readonly string[] ones = ["", "eins", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun", "zehn", "elf", "zwölf", "dreizehn", "vierzehn", "fünfzehn", "sechzehn", "siebzehn", "achtzehn", "neunzehn"];
 
     private readonly string[] tens = ["", "", "zwanzig", "dreißig", "vierzig", "fünfzig", "sechzig", "siebzig", "achtzig", "neunzig"];
@@ -63,15 +64,6 @@ public class GermanNumberConverter : INumberConverter
             words.Add("null");
         }
 
-        if (number >= 1_000_000_000)
-        {
-            long billionPart = number / 1_000_000_000;
-            if (billionPart == 1)
-                words.Add("eine Milliarde");
-            else
-                words.Add(UnderThousandConversion((int)billionPart) + " Milliarden");
-            number = number % 1_000_000_000;
-        }
         if (number >= 1_000_000)
         {
             long millionPart = number / 1_000_000;
